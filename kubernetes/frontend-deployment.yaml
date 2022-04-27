@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: blog-frontend
-        image: blog-frontend:6
+        image: blog-frontend:latest
         imagePullPolicy: Never
         ports:
         - containerPort: 3000

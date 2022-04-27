@@ -1,11 +1,12 @@
-FROM node:17.4.0 as build
+FROM node:17.4.0-alpine as build
 ENV NODE_ENV=development
 EXPOSE 3000
 WORKDIR /app
-COPY ["package.json", "package-lock.json*", "./"]
+# copy only package.json to use cache
+COPY package*.json ./
 RUN npm install
 COPY . .
-RUN [ "npm", "run", "build", "--", "--profile" ]
+RUN [ "npm", "run", "build"]
 
 FROM nginx:alpine
 COPY --from=build /app/build /usr/share/nginx/html

@@ -1,6 +1,6 @@
 <H1 align ="center" > MERN BLOG  </h1>
 <h5  align ="center"> 
-Fullstack open source blogging application made with MongoDB, Express, React & Nodejs (MERN) </h5>
+Fullstack open source blogging application ready to run in k8s (Dockerfiles included) made with MongoDB, Express, React & Nodejs (MERN) </h5>
 <br/>
 
   * [Configuration and Setup](#configuration-and-setup)
@@ -64,7 +64,70 @@ $ npm install (to install backend-side dependencies)
 $ npm start (to start the backend)
 ```
 
+## Running with K8s locally
 
+### Requisites
+
+1. minikube installed and running
+2. kubectl working (comes with minikube, check docs to make it available to use)
+3. docker engine installed
+
+### Build docker images of node backend and react frontend:
+```
+# --- standing in the root directory of cloned repository
+$ docker build -t blog-backend Backend/
+$ docker build -t blog-frontend Frontend/
+```
+
+### Make images available from the cluster
+```
+$ minikube image load blog-backend
+$ minikube image load blog-frontend
+```
+
+You can check that images are loaded in cluster by doing
+```
+$ eval $(minikube docker-env) && docker images && eval $(minikube docker-env -u)
+```
+
+This sets some env variables to point to minikube's cluster docker engine, print the images, and clear the variables to go back to host machine docker engine.
+
+### Create deployments and services using yaml files
+
+Deploy mongodb 
+```
+$ cd kubernetes/
+$ kubectl apply -f mongo-deployment.yaml
+$ kubectl apply -f mongo-service.yaml
+```
+You could now see deployment and service information: ```$ kubectl get all -o wide```
+ssh to minikube node: ```$ minikube ssh```
+
+To see if it works, you can try curl either the pod directly or through the service:
+
+```
+$ curl <POD_IP>:<27017>
+$ curl <MONGO_SERVICE_CLUSTER_IP>
+```
+
+#### Deploy backend
+```
+$ kubectl apply -f backend-deployment.yaml
+$ kubectl apply -f backend-service.yaml
+```
+
+You can repeat the same process as with mongodb to see if it works.
+
+#### Deploy frontend
+```
+$ kubectl apply -f frontend-deployment.yaml
+$ kubectl apply -f frontend-service.yaml
+```
+
+That's it! To try it out, you can visit the frontend at:
+```
+$ minikube service --url blog-frontend
+```
 ##  Key Features
 
 - User registration and login
