@@ -28,10 +28,10 @@ const DetailStory = () => {
       setLoading(true)
       var activeUser = {}
       try {
-        const { data } = await axios.get("/auth/private", {
+        const { data } = await axios.get("/api/auth/private", {
           headers: {
             "Content-Type": "application/json",
-            authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            authorization: `Bearer ${localStorage.getItem("authToken") || ""}`,
           },
         });
         activeUser = data.user
@@ -44,7 +44,7 @@ const DetailStory = () => {
       }
 
       try {
-        const { data } = await axios.post(`/story/${slug}`, { activeUser })
+        const { data } = await axios.post(`/api/story/${slug}`, { activeUser })
         setStory(data.data)
         setLikeStatus(data.likeStatus)
         setLikeCount(data.data.likeCount)
@@ -84,10 +84,10 @@ const DetailStory = () => {
     }, 1500)
 
     try {
-      const { data } = await axios.post(`/story/${slug}/like`, { activeUser }, {
+      const { data } = await axios.post(`/api/story/${slug}/like`, { activeUser }, {
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          authorization: `Bearer ${localStorage.getItem("authToken") || ""}`,
         },
       })
 
@@ -109,10 +109,10 @@ const DetailStory = () => {
 
       try {
 
-        await axios.delete(`/story/${slug}/delete`, {
+        await axios.delete(`/api/story/${slug}/delete`, {
           headers: {
             "Content-Type": "application/json",
-            authorization: `Bearer ${localStorage.getItem("authToken")}`,
+            authorization: `Bearer ${localStorage.getItem("authToken") || ""}`,
           },
         })
         navigate("/")
@@ -139,10 +139,10 @@ const DetailStory = () => {
 
     try {
 
-      const { data } = await axios.post(`/user/${slug}/addStoryToReadList`, { activeUser }, {
+      const { data } = await axios.post(`/api/user/${slug}/addStoryToReadList`, { activeUser }, {
         headers: {
           "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem("authToken")}`,
+          authorization: `Bearer ${localStorage.getItem("authToken") || ""}`,
         },
       })
 
@@ -172,7 +172,7 @@ const DetailStory = () => {
                   <ul>
                     {story.author &&
                       <li className='story-author-info'>
-                        <img src={`/userPhotos/${story.author.photo}`} alt={story.author.username} />
+                        <img src={`/api/userPhotos/${story.author.photo}`} alt={story.author.username} />
                         <span className='story-author-username'>{story.author.username}  </span>
                       </li>
                     }
@@ -232,7 +232,7 @@ const DetailStory = () => {
               <div className='story-content' >
 
                 <div className="story-banner-img">
-                  <img src={`/storyImages/${story.image}`} alt={story.title} />
+                  <img src={`/api/storyImages/${story.image}`} alt={story.title} />
 
                 </div>
 

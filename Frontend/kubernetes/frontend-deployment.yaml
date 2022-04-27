@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-frontend
+  labels:
+    app: blog-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blog-frontend
+  template:
+    metadata:
+      labels:
+        app: blog-frontend
+    spec:
+      containers:
+      - name: blog-frontend
+        image: blog-frontend:6
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 3000

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import {FaUserAlt} from 'react-icons/fa'
-import {AiOutlineUpload} from 'react-icons/ai'
+import { FaUserAlt } from 'react-icons/fa'
+import { AiOutlineUpload } from 'react-icons/ai'
 import Loader from "../GeneralScreens/Loader";
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../Context/AuthContext';
 import '../../Css/EditProfile.css'
 
@@ -27,8 +27,8 @@ const EditProfile = () => {
         formdata.append("photo", photo)
 
         try {
-            const { data } = await axios.post("/user/editProfile", formdata, config)
-         
+            const { data } = await axios.post("/api/user/editProfile", formdata, config)
+
             setSuccess('Edit Profile successfully ')
             setTimeout(() => {
                 navigate('/profile')
@@ -47,99 +47,99 @@ const EditProfile = () => {
         setEmail(activeUser.email)
         setPreviousPhoto(activeUser.photo)
         setPhoto(activeUser.photo)
-        setTimeout(()=>{
+        setTimeout(() => {
             setLoading(false)
-        },1050)
+        }, 1050)
     }, [navigate, activeUser])
 
     return (
         <>
-        {
-            loading ? <Loader/> :
-            <div className="Inclusive-editprofile-page">
+            {
+                loading ? <Loader /> :
+                    <div className="Inclusive-editprofile-page">
 
-            <form onSubmit={handleSubmit}>
-                {error && <div className="error_msg">{error}</div>}
+                        <form onSubmit={handleSubmit}>
+                            {error && <div className="error_msg">{error}</div>}
 
-                {success && <div className="success_msg">{success}  </div>}
+                            {success && <div className="success_msg">{success}  </div>}
 
-                <div className="input-wrapper">
-                    <input type="text"
-                        id="username" placeholder="Username  " name='username'
-                        value={username}
-                        onChange={(e) => setUsername(e.target.value)}
-                    />
-                    <label htmlFor="username">Username</label>
+                            <div className="input-wrapper">
+                                <input type="text"
+                                    id="username" placeholder="Username  " name='username'
+                                    value={username}
+                                    onChange={(e) => setUsername(e.target.value)}
+                                />
+                                <label htmlFor="username">Username</label>
 
-                </div>
-
-                <div className="input-wrapper">
-
-                    <input type="email"
-                        id="email" placeholder="Email  " name='email'
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <label htmlFor="email">E-mail</label>
-
-                </div>
-
-                <div className="profile-ımg-upld-wrapper">
-
-                    <div class="ProfilePhotoField">
-                        <FaUserAlt />
-                        <div class="txt">
-
-                            {photo === previousPhoto ?
-                            <div>
-                                <AiOutlineUpload/>
-                              <span>
-                              Change Profile Photo
-
-                              </span>
                             </div>
-                           :
-                                photo.name
-                            }
-                        </div>
-                        <input
-                            name="photo"
-                            type="file"
 
-                            onChange={(e) => {
-                                setPhoto(e.target.files[0])
-                            }}
-                        />
+                            <div className="input-wrapper">
 
-                      
+                                <input type="email"
+                                    id="email" placeholder="Email  " name='email'
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                />
+                                <label htmlFor="email">E-mail</label>
+
+                            </div>
+
+                            <div className="profile-ımg-upld-wrapper">
+
+                                <div class="ProfilePhotoField">
+                                    <FaUserAlt />
+                                    <div class="txt">
+
+                                        {photo === previousPhoto ?
+                                            <div>
+                                                <AiOutlineUpload />
+                                                <span>
+                                                    Change Profile Photo
+
+                                                </span>
+                                            </div>
+                                            :
+                                            photo.name
+                                        }
+                                    </div>
+                                    <input
+                                        name="photo"
+                                        type="file"
+
+                                        onChange={(e) => {
+                                            setPhoto(e.target.files[0])
+                                        }}
+                                    />
+
+
+                                </div>
+
+
+                                <div class="currentImage">
+                                    <div class="absolute">
+                                        Currently Image
+                                    </div>
+                                    <img src={`/api/userPhotos/${previousPhoto}`} alt="userPhoto" />
+                                </div>
+
+                            </div>
+
+                            <button type='submit' className='editprofile-btn'
+                            >Edit Profile </button>
+
+
+
+                        </form>
+
+
+
+
+
+
+
                     </div>
-
-
-                    <div class="currentImage">
-                        <div class="absolute">
-                            Currently Image
-                        </div>
-                        <img src={`http://localhost:5000/userPhotos/${previousPhoto}`} alt="userPhoto" />
-                    </div>
-
-                </div>
-
-                <button type='submit' className='editprofile-btn'
-                >Edit Profile </button>
-
-
-
-            </form>
-
-
-
-
-
-
-
-        </div>
-        }
-    </>
+            }
+        </>
 
     )
 }

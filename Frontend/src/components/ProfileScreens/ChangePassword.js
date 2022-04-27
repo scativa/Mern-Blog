@@ -30,7 +30,7 @@ const ChangePassword = () => {
 
         try {
             const { data } = await axios.put(
-                "/user/changePassword",
+                "/api/user/changePassword",
                 {
                     newPassword,
                     oldPassword
@@ -38,7 +38,7 @@ const ChangePassword = () => {
                 {
                     headers: {
                         "Content-Type": "application/json",
-                        authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                        authorization: `Bearer ${localStorage.getItem("authToken") || ""}`,
                     },
                 }
             );

@@ -19,10 +19,10 @@ const CommentItem = ({ comment, activeUser }) => {
 
             const comment_id = comment._id
             try {
-                const { data } = await axios.post(`/comment/${comment_id}/getCommentLikeStatus`, { activeUser }, {
+                const { data } = await axios.post(`/api/comment/${comment_id}/getCommentLikeStatus`, { activeUser }, {
                     headers: {
                         "Content-Type": "application/json",
-                        authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                        authorization: `Bearer ${localStorage.getItem("authToken") || ""}`,
                     },
                 })
                 setLikeStatus(data.likeStatus)
@@ -50,10 +50,10 @@ const CommentItem = ({ comment, activeUser }) => {
         const comment_id = comment._id
 
         try {
-            const { data } = await axios.post(`/comment/${comment_id}/like`, { activeUser }, {
+            const { data } = await axios.post(`/api/comment/${comment_id}/like`, { activeUser }, {
                 headers: {
                     "Content-Type": "application/json",
-                    authorization: `Bearer ${localStorage.getItem("authToken")}`,
+                    authorization: `Bearer ${localStorage.getItem("authToken") || ""}`,
                 },
             })
 
@@ -73,7 +73,7 @@ const CommentItem = ({ comment, activeUser }) => {
             <div className="comment-top-block">
 
                 <section>
-                    <img src={`/userPhotos/${comment.author.photo}`} alt={comment.author.username} width="35" />
+                    <img src={`/api/userPhotos/${comment.author.photo}`} alt={comment.author.username} width="35" />
 
                     <div>
                         <span className='comment-author-username' >{comment.author.username}</span>

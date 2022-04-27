@@ -25,7 +25,7 @@ const Home = () => {
       setLoading(true)
       try {
 
-        const { data } = await axios.get(`/story/getAllStories?search=${searchKey || ""}&page=${page}`)
+        const { data } = await axios.get(`api/story/getAllStories?search=${searchKey || ""}&page=${page}`)
 
         if (searchKey) {
           navigate({
@@ -41,6 +41,7 @@ const Home = () => {
 
 
         }
+        console.log("data:", data);
         setStories(data.data)
         setPages(data.pages)
 

@@ -14,7 +14,7 @@ const Profile = () => {
         const monthNames = ["January", "February", "March", "April", "May", "June",
             "July", "August", "September", "October", "November", "December"
         ];
-        const d = new Date(createdAt) ;
+        const d = new Date(createdAt);
         var datestring = d.getDate() + " " + monthNames[d.getMonth()] + " , " + d.getFullYear()
         return datestring
     }
@@ -28,7 +28,7 @@ const Profile = () => {
             setLoading(true)
 
             try {
-                const { data } = await axios.get("/user/profile", config)
+                const { data } = await axios.get("/api/user/profile", config)
 
                 setUser(data.data)
 
