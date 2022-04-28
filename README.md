@@ -5,6 +5,7 @@ Fullstack open source blogging application ready to run in k8s (Dockerfiles incl
 
   * [Configuration and Setup](#configuration-and-setup)
   * [Key Features](#key-features)
+  * [Running with K8s locally] (#running-with-k8s-locally)
   * [Technologies used](#technologies-used)
       - [Frontend](#frontend)
       - [Backend](#backend)
