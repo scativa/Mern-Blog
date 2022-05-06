@@ -1,5 +1,5 @@
 FROM node:17.4.0-alpine as build
-ENV NODE_ENV=development
+ENV NODE_ENV=production
 EXPOSE 3000
 WORKDIR /app
 # copy only package.json to use cache
