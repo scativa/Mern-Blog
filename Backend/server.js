@@ -7,7 +7,7 @@ const IndexRoute = require("./Routers/index")
 const connectDatabase = require("./Helpers/database/connectDatabase")
 const customErrorHandler = require("./Middlewares/Errors/customErrorHandler")
 const res = dotenv.config({
-    path: path.join(__dirname, "Config") + "/cofig.env"
+    path: path.join(__dirname, "config") + "/config.env"
 })
 connectDatabase()
 
