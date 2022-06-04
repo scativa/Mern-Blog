@@ -1,9 +1,14 @@
 # Setup in Win10
 
-## VirtualBox
+## Minikube
+
+### VirtualBox
 No corre si la PC está en modo Hiper-v
 
-## Hiper-V
+### Hiper-V
+```
+minikube start --driver=hyperv
+```
 Precisa privilegios de administrados o agregar al usuario al grupo "_hyper-v administrators_"
 
 Solución:
